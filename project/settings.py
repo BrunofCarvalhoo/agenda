@@ -121,6 +121,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'base_static',
 )   
+STATIC_ROOT = BASE_DIR / 'static' # collectstatic
+
+MEDIA_URL = 'media/' # sao arquivos enviados pelo usuario
+MEDIA_ROOT = BASE_DIR / 'media' # local onde os arquivos enviados serao armazenados
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
