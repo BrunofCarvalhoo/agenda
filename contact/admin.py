@@ -11,3 +11,9 @@ class ContactAdmin(admin.ModelAdmin):
     list_max_show_all = 200 # so vai aparecer o 'mostrar tudo' se tiver com menos de 200 contatos
     list_editable = 'first_name','last_name', # esses campos podem ser editados diretamente na listagem
     list_display_links = 'id', 'phone', # esses campos vão ser links para editar o contato
+
+@admin.register(models.Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = 'name', 
+    ordering = '-id', 
+    
