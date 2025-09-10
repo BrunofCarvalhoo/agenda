@@ -1,5 +1,6 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404, redirect
 from contact.models import Contact
+from django.db.models import Q
 #from django.http import Http404
 # Create your views here.
 def index(request):
@@ -14,6 +15,25 @@ def index(request):
         'contact/index.html',
         context
     )
+
+def search(request):
+    search_value = request.GET.get('q',' ').strip() # o q é o nome do forms 
+    
+    if search_value == '':
+        return redirect('contact:index')
+
+    contacts = Contact.objects.filter(show=True).filter(Q(first_name__icontains=search_value) | Q(last_name__icontains=search_value) | Q(phone__icontains=search_value) | Q(email__icontains=search_value)).order_by('-id')[:10] # seleciona os contatos onde o show é True
+    context = {
+        'contacts': contacts, 
+        'site_title': 'Search - '
+    }
+    return render(
+        request,
+        'contact/index.html',
+        context
+    )
+
+
 
 def contact(request, contact_id):
 
